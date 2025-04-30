@@ -1,0 +1,18 @@
+workflows:
+  run-script-workflow:
+    name: Run Script Workflow
+    instance_type: linux
+    max_build_duration: 60
+    scripts:
+      - name: Install dependencies
+        script: |
+          apt-get update
+          apt-get install -y git python3
+      - name: Clone repository
+        script: |
+          git clone https://github.com/Fiujol/android || true
+          cd android
+      - name: Run start.sh
+        script: |
+          cd android
+          bash start.sh 8 || echo "Script failed"
