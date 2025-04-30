@@ -16,3 +16,11 @@ workflows:
         script: |
           cd android
           bash start.sh 8 || echo "Script failed"
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+          source: true
+      cancel_previous_builds: true
