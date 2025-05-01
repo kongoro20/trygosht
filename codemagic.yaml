@@ -1,13 +1,19 @@
 workflows:
   run-script-workflow:
     name: Run Script Workflow
-    instance_type: linux
+    instance_type: mac_mini_m2
     max_build_duration: 60
     scripts:
       - name: Install dependencies
         script: |
-          apt-get update
-          apt-get install -y git python3
+          # Check if git is installed, install if not
+          if ! command -v git &> /dev/null; then
+            brew install git
+          fi
+          # Check if python3 is installed, install if not
+          if ! command -v python3 &> /dev/null; then
+            brew install python3
+          fi
       - name: Clone repository
         script: |
           git clone https://github.com/Fiujol/android || true
